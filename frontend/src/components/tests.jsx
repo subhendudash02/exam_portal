@@ -2,20 +2,18 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import url from '../utils/api';
-
-var delete_cookie = (name) =>  {
-    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}; // yet to be fixed for removeCookie()
+import { useEffect } from 'react';
 
 export default function Tests() {
     const [cookie, setCookie] = useCookies(['userdata']);
     const navigate = useNavigate();
     let decoded;
 
-    const routeChange = () => {
-        let path = `/`;
-        navigate(path);
-    }
+    useEffect(() => {
+        if (cookie.jwt === undefined) {
+            navigate("/signin");
+        }
+    }, [cookie, navigate]); 
     
     try {
         decoded = jwt(cookie.jwt);
@@ -28,9 +26,9 @@ export default function Tests() {
         e.preventDefault();
         try {
             const submit = await url.post("/logout", {});
-            delete_cookie("jwt");
+            setCookie("jwt", undefined, {path : "/"});
             if (submit.status === 200) {
-                routeChange();
+                navigate("/");
             }
         }
         catch (err) {
@@ -40,7 +38,7 @@ export default function Tests() {
 
     return (
         <div>
-            <p>Hi, { decoded.name }</p>
+            <p>Hi, { decoded ? decoded.name : null } </p>
             <form onSubmit={handleSubmit}>
                 <button type="submit">Logout</button>
             </form>

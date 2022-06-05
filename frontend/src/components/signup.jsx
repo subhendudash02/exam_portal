@@ -25,14 +25,14 @@ export default function SignUp() {
                     email: email.current.value,
                     password: password.current.value
                 })
-                if (submit.status) {
+                if (submit.status === 200) {
                    routeChange();
                 }
             }
             
         }
         catch (err) {
-            console.log(err);
+            console.log(err.response.request.responseText);
         }
     }
 
