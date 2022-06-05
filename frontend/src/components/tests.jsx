@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import jwt from 'jwt-decode';
 import url from '../utils/api';
 
+var delete_cookie = (name) =>  {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}; // yet to be fixed for removeCookie()
+
 export default function Tests() {
     const [cookie, setCookie, removeCookie] = useCookies(['userdata']);
     const navigate = useNavigate();
@@ -24,7 +28,10 @@ export default function Tests() {
         e.preventDefault();
         try {
             const submit = await url.post("/logout", {});
-            removeCookie('userdata');
+            delete_cookie("jwt");
+            if (submit.status == 200) {
+                routeChange();
+            }
         }
         catch (err) {
             console.log("wrong credentials");
@@ -35,7 +42,7 @@ export default function Tests() {
         <div>
             <p>Hi, { decoded.name }</p>
             <form onSubmit={handleSubmit}>
-                <button type="submit" onClick={routeChange}>Logout</button>
+                <button type="submit">Logout</button>
             </form>
         </div>
     );

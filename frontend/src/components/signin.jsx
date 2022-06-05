@@ -26,6 +26,9 @@ export default function SignIn() {
                 password: password.current.value
             })
             setCookie("jwt", submit.data.jwt, {path:"/"});
+            if (submit.status) {
+               routeChange();
+            }
         }
         catch (err) {
             console.log("wrong credentials");
@@ -40,7 +43,7 @@ export default function SignIn() {
                 <input type="text" ref={email}></input><br />
                 <p>Password: </p>
                 <input type="password" ref={password}></input><br />
-                <button type="submit" onClick={routeChange}>Login</button>
+                <button type="submit">Login</button>
             </form>
         </div>
     );
