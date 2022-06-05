@@ -8,7 +8,7 @@ var delete_cookie = (name) =>  {
 }; // yet to be fixed for removeCookie()
 
 export default function Tests() {
-    const [cookie, setCookie, removeCookie] = useCookies(['userdata']);
+    const [cookie, setCookie] = useCookies(['userdata']);
     const navigate = useNavigate();
     let decoded;
 
@@ -21,7 +21,7 @@ export default function Tests() {
         decoded = jwt(cookie.jwt);
     }
     catch (err) {
-        console.log(err);
+        console.log("Not signed in!");
     }
 
     const handleSubmit = async (e) => {
@@ -29,12 +29,12 @@ export default function Tests() {
         try {
             const submit = await url.post("/logout", {});
             delete_cookie("jwt");
-            if (submit.status == 200) {
+            if (submit.status === 200) {
                 routeChange();
             }
         }
         catch (err) {
-            console.log("wrong credentials");
+            console.log("Try to logout later!");
         }
     }
 

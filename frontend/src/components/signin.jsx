@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import '../styles/signin.css';
@@ -7,6 +7,7 @@ import url from "../utils/api";
 export default function SignIn() {
     const email = useRef();
     const password = useRef();
+    const [cookie, setCookie] = useCookies(['userdata']);
 
     const navigate = useNavigate();
 
@@ -14,9 +15,6 @@ export default function SignIn() {
         let path = `/tests`;
         navigate(path);
     }
-
-    const [name, setName] = useState("");
-    const [cookie, setCookie] = useCookies(['userdata']);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

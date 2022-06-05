@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <div className="home">
             <h1>Welcome to the portal</h1>
-            <Link to="/login">Sign In</Link>
+            <Link to="/signin">Sign In</Link>
         </div>
     );
 }
