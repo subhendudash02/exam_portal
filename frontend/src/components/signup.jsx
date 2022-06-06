@@ -1,5 +1,6 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import '../styles/signin.css';
 import url from "../utils/api";
 
@@ -8,13 +9,25 @@ export default function SignUp() {
     const email = useRef();
     const password = useRef();
     const repass = useRef();
+    const [cookie, setCookie] = useCookies(['userdata']);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (cookie.jwt === undefined) {
+            setCookie("jwt", "", {path : "/"});
+        }
+        else if (cookie.jwt !== "") {
+            navigate("/tests");
+        }
+    });
 
     const routeChange = () => {
         let path = `/signin`;
         navigate(path);
     }
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();

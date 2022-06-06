@@ -2,8 +2,7 @@ import './styles/App.css';
 import SignIn from './components/signin';
 import SignUp from './components/signup';
 import Home from './components/home';
-import { checkCookie } from './utils/cookieCheck';
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Tests from './components/tests';
 
 function App() {

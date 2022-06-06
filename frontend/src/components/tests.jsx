@@ -10,7 +10,7 @@ export default function Tests() {
     let decoded;
 
     useEffect(() => {
-        if (cookie.jwt === undefined) {
+        if (cookie.jwt === "") {
             navigate("/signin");
         }
     }, [cookie, navigate]); 
@@ -26,7 +26,7 @@ export default function Tests() {
         e.preventDefault();
         try {
             const submit = await url.post("/logout", {});
-            setCookie("jwt", undefined, {path : "/"});
+            setCookie("jwt", "", {path : "/"});
             if (submit.status === 200) {
                 navigate("/");
             }
