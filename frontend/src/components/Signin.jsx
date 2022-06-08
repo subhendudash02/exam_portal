@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import React, {useEffect, useRef} from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import '../styles/signin.css';
+import '../styles/signin_up.css';
 import url from "../utils/api";
 
 export default function SignIn() {
@@ -18,8 +19,6 @@ export default function SignIn() {
             navigate("/tests");
         }
     });
-
-    
 
     const routeChange = () => {
         let path = `/tests`;
@@ -44,15 +43,21 @@ export default function SignIn() {
     }
 
     return (
-        <div className="signin">
-            <form onSubmit={handleSubmit}>
-                <h1 className='signinHeading'>Sign In</h1>
-                <p>Email: </p>
-                <input type="text" ref={email}></input><br />
-                <p>Password: </p>
-                <input type="password" ref={password}></input><br />
-                <button type="submit">Login</button>
-            </form>
-        </div>
+        <React.Fragment>
+            <div id="left">
+                <form onSubmit={handleSubmit}>
+                    <h1 className='heading'>Login to Your Account</h1>
+                    <input className="email" type="text" ref={email} placeholder="Email"></input><br />
+                    <input className="password" type="password" ref={password} placeholder="Password"></input><br />
+                    <button className="submit" type="submit">Login</button>
+                </form>
+            </div>
+
+            <div id="right">
+                <h1 className='heading'>New Student?</h1>
+                <p className="para">Sign up now!</p>
+                <button className='submit' id="link"><Link to="/signup">Sign Up</Link></button>
+            </div>
+        </React.Fragment>
     );
 }

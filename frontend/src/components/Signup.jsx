@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import React, {useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import '../styles/signin.css';
+import '../styles/signin_up.css';
 import url from "../utils/api";
 
 export default function SignUp() {
@@ -27,8 +28,6 @@ export default function SignUp() {
         navigate(path);
     }
 
-    
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -50,19 +49,22 @@ export default function SignUp() {
     }
 
     return (
-        <div className="signin">
-            <form onSubmit={handleSubmit}>
-                <h1 className='signinHeading'>Sign Up</h1>
-                <p>Full Name: </p>
-                <input type="text" ref={ name }></input><br />
-                <p>Email: </p>
-                <input type="text" ref={ email }></input><br />
-                <p>Password: </p>
-                <input type="password" ref = { password }></input><br />
-                <p>Retype Password: </p>
-                <input type="password" ref={ repass }></input>
-                <button type="submit">Register</button>
-            </form>
-        </div>
+        <React.Fragment>
+            <div id="right2">
+                <form onSubmit={handleSubmit}>
+                    <h1 className='heading'>Register</h1>
+                    <input className="name" type="text" ref={ name } placeholder="Full Name"></input><br />
+                    <input className="email" type="text" ref={ email } placeholder="Email"></input><br />
+                    <input className="password" type="password" ref={ password } placeholder="Password"></input><br />
+                    <input className="password" type="password" ref={ repass } placeholder="Retype Password"></input>< br/>
+                    <button className="submit" type="submit">Register</button>
+                </form>
+            </div>
+
+            <div id="left2">
+                <h1 className='heading'>Already have an account?</h1>
+                <button className='submit' id="link"><Link to="/signin">Sign In</Link></button>
+            </div>
+        </React.Fragment>
     );
 }
