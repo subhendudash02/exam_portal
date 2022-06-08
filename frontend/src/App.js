@@ -1,9 +1,10 @@
 import './styles/App.css';
-import SignIn from './components/signin';
-import SignUp from './components/signup';
-import Home from './components/home';
+import SignIn from './components/Signin';
+import SignUp from './components/Signup';
+import Home from './components/Home';
+import ListQues from './components/ListQues';
+import Tests from './components/Tests';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Tests from './components/tests';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element= {<SignUp />} />
           <Route path="/signin" element= { <SignIn /> } />
           <Route path="/tests" element= { <Tests /> } />
+          <Route path="/exam" element= { <ListQues /> }/>
         </Routes>
       </BrowserRouter>
     </div>
