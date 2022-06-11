@@ -1,4 +1,7 @@
 import {useState, useEffect} from 'react'; 
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
+import Columns from '../utils/columns';
 
 let endTime = new Date('Jun 8, 2022 21:00:00').getTime();
 let arr = [];
@@ -39,6 +42,10 @@ export default function ListQues() {
                 </div>
                 );
             }) : null}
+
+            <DndProvider backend={HTML5Backend}>
+                <Columns />
+            </DndProvider>
         </div>
     );
 }
