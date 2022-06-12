@@ -1,7 +1,8 @@
-import {useState, useEffect} from 'react'; 
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-import Columns from '../utils/columns';
+import {useState, useEffect} from 'react';
+import list from '../utils/question';
+import "../styles/match_col.css";
+// import {DndProvider, } from 'react-dnd';
+// import {HTML5Backend} from 'react-dnd-html5-backend';
 
 let endTime = new Date('Jun 8, 2022 21:00:00').getTime();
 let arr = [];
@@ -27,6 +28,20 @@ export default function ListQues() {
         console.log(arr);
     };
 
+    const allow = (e) => {
+        e.preventDefault();
+    }
+    
+    const drop = (e) => {
+        e.preventDefault();
+        let data = e.dataTransfer.getData("text");
+        e.target.appendChild(document.getElementById(data));
+    }
+    
+    const drag = (e) => {
+        e.dataTransfer.setData("text", e.target.id);
+    }
+
     return  (
         <div>
             <h1>{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
@@ -43,9 +58,22 @@ export default function ListQues() {
                 );
             }) : null}
 
-            <DndProvider backend={HTML5Backend}>
+            {/* <DndProvider backend={HTML5Backend}>
                 <Columns />
-            </DndProvider>
+            </DndProvider> */}
+
+            <div className="question">
+                <div className="colA" onDrop={(e) => drop(e)} onDragOver={(e) => allow(e)}>
+                    {list.map((x) => {
+                        return (
+                            <div key={x.id} id="select" draggable="true" onDragStart={(e) => drag(e)}>
+                                <h3>{x.desc}</h3>
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="colB" onDrop={(e) => drop(e)} onDragOver={(e) => allow(e)}></div>
+            </div>
         </div>
     );
 }

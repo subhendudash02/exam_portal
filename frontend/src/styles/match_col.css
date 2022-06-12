@@ -1,25 +1,16 @@
-.board {
+.colA, .colB {
+    padding: 2%;
+    border: 1px solid #000;
+    width: 50%;
+    margin: 2%;
+}
+
+.question {
     display: flex;
     flex-direction: row;
 }
 
-.colA, .colB {
-    width: 50%;
-    padding: 2%;
-}
-
-.colA {
-    float: left;
-    background-color: aqua;
-}
-
-.colB {
-    float: right;
-    background-color: red;
-}
-
-.box {
-    padding: 2%;
-    border: 1px solid black;
-    background-color: white;
+#select {
+    border: 1px solid #000;
+    margin: 2%;
 }
