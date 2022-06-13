@@ -8,6 +8,25 @@ let endTime = new Date('Jun 8, 2022 21:00:00').getTime();
 let arr = [];
 let toShow = false;
 
+const allow = (e) => {
+    e.preventDefault();
+}
+
+const drop = (e) => {
+    e.preventDefault();
+    let data = e.dataTransfer.getData("text");
+    if (e.target.className === "colB" || e.target.className === "colA") {
+        e.target.appendChild(document.getElementsByClassName(data)[0]);
+    }   
+    else {
+        console.log("invalid");
+    }
+}
+
+const drag = (e) => {
+    e.dataTransfer.setData("text", e.target.className);
+}
+
 export default function ListQues() {
     const [disp, setDisp] = useState("over");
     const [disappear, setDisappear] = useState(false);
@@ -27,20 +46,6 @@ export default function ListQues() {
         arr.push({"hours": hours, "minutes": minutes, "seconds": seconds});
         console.log(arr);
     };
-
-    const allow = (e) => {
-        e.preventDefault();
-    }
-    
-    const drop = (e) => {
-        e.preventDefault();
-        let data = e.dataTransfer.getData("text");
-        e.target.appendChild(document.getElementById(data));
-    }
-    
-    const drag = (e) => {
-        e.dataTransfer.setData("text", e.target.id);
-    }
 
     return  (
         <div>
@@ -63,16 +68,21 @@ export default function ListQues() {
             </DndProvider> */}
 
             <div className="question">
-                <div className="colA" onDrop={(e) => drop(e)} onDragOver={(e) => allow(e)}>
+                <div className="colA" 
+                    onDrop={(e) => drop(e)} 
+                    onDragOver={(e) => allow(e)}>
                     {list.map((x) => {
                         return (
-                            <div key={x.id} id="select" draggable="true" onDragStart={(e) => drag(e)}>
+                            <div key={x.id} id="select" draggable="true" onDragStart={(e) => drag(e)} className={"box" + x.id}>
                                 <h3>{x.desc}</h3>
                             </div>
                         );
                     })}
                 </div>
-                <div className="colB" onDrop={(e) => drop(e)} onDragOver={(e) => allow(e)}></div>
+                <div className="colB" 
+                    onDrop={(e) => drop(e)} 
+                    onDragOver={(e) => allow(e)}>
+                </div>
             </div>
         </div>
     );
