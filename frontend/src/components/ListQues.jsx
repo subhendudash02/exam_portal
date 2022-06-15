@@ -4,7 +4,7 @@ import "../styles/match_col.css";
 // import {DndProvider, } from 'react-dnd';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
-let endTime = new Date('Jun 8, 2022 21:00:00').getTime();
+let endTime = new Date(list[0].end).getTime();
 let arr = [];
 let toShow = false;
 
@@ -71,10 +71,16 @@ export default function ListQues() {
                 <div className="colA" 
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
-                    {list.map((x) => {
+                    {list[0].questions.map((e) => {
                         return (
-                            <div key={x.id} id="select" draggable="true" onDragStart={(e) => drag(e)} className={"box" + x.id}>
-                                <h3>{x.desc}</h3>
+                            <div key={e.ques_id} >
+                                {e.rows.map((x) => {
+                                    return (
+                                        <div key={x.id} id="select" draggable="true" onDragStart={(e) => drag(e)} className={"box" + x.id}>
+                                            <h3>{x.desc}</h3>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         );
                     })}
