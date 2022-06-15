@@ -1,0 +1,43 @@
+.logout { 
+    background-color: #28B599;
+    color: white;
+    border: none;
+    padding: 1%;
+    border-radius: 10px;
+    float: right;
+    margin: -20px;
+}
+
+.logout:hover {
+    cursor: pointer;
+}
+
+.list {
+    clear: both;
+    text-align: left;
+    padding: 2%;
+}
+
+.navbar {
+    background-color: black;
+    color: white;
+    padding: 2%;
+}
+
+.available_tests {
+    text-align: left;
+    border: 1px solid black;
+    padding: 2%;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.start {
+    background-color: #28B599;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 2%;
+    width: 30%;
+    font-size: 1.2rem;
+}
