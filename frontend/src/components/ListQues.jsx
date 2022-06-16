@@ -24,6 +24,7 @@ const drop = (e) => {
 }
 
 const drag = (e) => {
+    console.log(e);
     e.dataTransfer.setData("text", e.target.className);
 }
 
