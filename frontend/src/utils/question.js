@@ -12,15 +12,37 @@ const list = [
                 rows: [
                 {
                     id: 1,
-                    desc: "one",
+                    colA: "one",
+                    colB: "2"
                 },
                 {
                     id: 2,
-                    desc: "two",
+                    colA: "two",
+                    colB: "3"
                 },
                 {
                     id: 3,
-                    desc: "three",
+                    colA: "three",
+                    colB: "1",
+                },]
+            },
+            {
+                ques_id: 2,
+                rows: [
+                {
+                    id: 1,
+                    colA: "ek",
+                    colB: "do"
+                },
+                {
+                    id: 2,
+                    colA: "do",
+                    colB: "three"
+                },
+                {
+                    id: 3,
+                    colA: "teen",
+                    colB: "ek",
                 },]
             }
         ]
