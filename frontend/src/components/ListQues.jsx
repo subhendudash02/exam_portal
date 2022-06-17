@@ -14,23 +14,27 @@ const allow = (e) => {
 
 const drop = (e) => {
     e.preventDefault();
-    let data = e.dataTransfer.getData("text");
-    if (e.target.className === "colB" || e.target.className === "colA") {
-        e.target.appendChild(document.getElementsByClassName(data)[0]);
-    }   
-    else {
-        console.log("invalid");
+    let className = e.dataTransfer.getData("class");
+    let idName = e.dataTransfer.getData("id");
+    if (idName === "select1") {
+        if (e.target.id === "select2") {
+            e.target.appendChild(document.getElementsByClassName(className)[0]);
+        }
+        else if (e.target.className === "colA") {
+            e.target.appendChild(document.getElementsByClassName(className)[1]);
+        }
     }
 }
 
 const drag = (e) => {
-    console.log(e);
-    e.dataTransfer.setData("text", e.target.className);
+    e.dataTransfer.setData("class", e.target.className);
+    e.dataTransfer.setData("id", e.target.id);
 }
 
 export default function ListQues() {
     const [disp, setDisp] = useState("over");
     const [disappear, setDisappear] = useState(false);
+    const [count, setCount] = useState(1);
 
     useEffect(() => {
         let dist = endTime - new Date().getTime();
@@ -45,13 +49,19 @@ export default function ListQues() {
 
     const addTime = () => {
         arr.push({"hours": hours, "minutes": minutes, "seconds": seconds});
+        setCount(count + 1);
         console.log(arr);
     };
+
+    const editTime = () => {
+        setCount(count - 1);
+    }
 
     return  (
         <div>
             <h1>{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
             {!disappear ? <button onClick={addTime}>Next</button> : null}
+            {<button onClick={editTime}> Previous</button>}
             <button onClick={() => {
                 toShow = true;
                 setDisappear(true);
@@ -68,27 +78,44 @@ export default function ListQues() {
                 <Columns />
             </DndProvider> */}
 
-            <div className="question">
+            <div className='question'>
                 <div className="colA" 
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
                     {list[0].questions.map((e) => {
-                        return (
-                            <div key={e.ques_id} >
-                                {e.rows.map((x) => {
-                                    return (
-                                        <div key={x.id} id="select" draggable="true" onDragStart={(e) => drag(e)} className={"box" + x.id}>
-                                            <h3>{x.desc}</h3>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
+                        if (e.ques_id === count) {
+                            return (
+                                <div key={e.ques_id} >
+                                    {e.rows.map((x) => {
+                                        return (
+                                            <div key={x.id} id="select1" draggable="true" onDragStart={(e) => drag(e)} className={"box" + x.id}>
+                                                <h3>{x.colA}</h3>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        }
                     })}
                 </div>
                 <div className="colB" 
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
+                    {list[0].questions.map((e) => {
+                        if (e.ques_id === count) {
+                            return (
+                                <div key={e.ques_id} >
+                                    {e.rows.map((x) => {
+                                        return (
+                                            <div key={x.id} id="select2" className={"box" + x.id}>
+                                                <h3>{x.colB}</h3>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        }
+                    })}
                 </div>
             </div>
         </div>

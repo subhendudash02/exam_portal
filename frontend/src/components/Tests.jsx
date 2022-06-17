@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import "../styles/tests.css";
 import list from '../utils/question';
 
+const currTime = Math.floor(new Date().getTime() / 1000);
+
 export default function Tests() {
     const [cookie, setCookie] = useCookies(['userdata']);
     const navigate = useNavigate();
@@ -53,8 +55,11 @@ export default function Tests() {
                             <h2>{e.test_name}</h2>
                             <p><strong>Start: </strong>{e.start}</p>
                             <p><strong>End: </strong>{e.end}</p>
-                            {Math.floor(new Date(e.start).getTime() / 1000) <= Math.floor(new Date().getTime() / 1000) ? 
-                                <button className='start'><Link to="/exam">Start</Link></button> : <i>Not available</i>}
+                            {Math.floor(new Date(e.start).getTime() / 1000) <= currTime && 
+                            Math.floor(new Date(e.end).getTime() / 1000) >= currTime ? 
+                                <button className='start'><Link to="/exam">Start</Link></button> : 
+                                <i>Not available</i>
+                            }
                         </div>
                     )
                 })}
