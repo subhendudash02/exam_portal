@@ -37,7 +37,7 @@ const list = [
                 {
                     id: 2,
                     colA: "do",
-                    colB: "three"
+                    colB: "teen"
                 },
                 {
                     id: 3,
