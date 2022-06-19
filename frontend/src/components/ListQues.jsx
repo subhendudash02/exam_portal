@@ -7,6 +7,7 @@ import "../styles/match_col.css";
 let endTime = new Date(list[0].end).getTime();
 let arr = [];
 let toShow = false;
+let len = list[0].questions.length;
 
 const allow = (e) => {
     e.preventDefault();
@@ -55,24 +56,19 @@ export default function ListQues() {
 
     const editTime = () => {
         setCount(count - 1);
-    }
+    };
 
     return  (
         <div>
-            <h1>{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
-            {!disappear ? <button onClick={addTime}>Next</button> : null}
-            {<button onClick={editTime}> Previous</button>}
-            <button onClick={() => {
-                toShow = true;
-                setDisappear(true);
-            }}>End Test</button>
-            {toShow ? arr.map((item, index) => {
-            return (
-                <div key={index}>
-                    <p>{item.hours}:{item.minutes}:{item.seconds}</p>
-                </div>
-                );
-            }) : null}
+            <h1 id="timer">{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
+            <h3 className="questionNo">Question-{count}</h3>
+            <p className="questionName">{list[0].questions.map(
+                (e) => {
+                   if (e.ques_id === count) {
+                          return e.question_name;
+                   } 
+                }
+            )}</p>
 
             {/* <DndProvider backend={HTML5Backend}>
                 <Columns />
@@ -118,6 +114,19 @@ export default function ListQues() {
                     })}
                 </div>
             </div>
+            {!disappear || count == len ? <button onClick={addTime} className="navButton">Next</button> : null}
+            {count > 1 || count >= len ? <button onClick={editTime} className="navButton"> Previous</button> : null}
+            <button onClick={() => {
+                toShow = true;
+                setDisappear(true);
+            }} className="navButton">End Test</button>
+            {toShow ? arr.map((item, index) => {
+            return (
+                <div key={index}>
+                    <p>{item.hours}:{item.minutes}:{item.seconds}</p>
+                </div>
+                );
+            }) : null}
         </div>
     );
 }

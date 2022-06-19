@@ -3,9 +3,11 @@
     border: 1px solid #000;
     width: 50%;
     margin: 2%;
+    border-radius: 10px;
 }
 
 .question {
+    clear: both;
     display: flex;
     flex-direction: row;
 }
@@ -13,4 +15,50 @@
 #select1, #select2 {
     border: 1px solid #000;
     margin: 2%;
+    border-radius: 10px;
+}
+
+#select1 {
+    background-color: #0f8870;
+}
+
+#select2 {
+    background-color: rgb(194, 194, 39);
+}
+
+#select1:hover {
+    cursor: pointer;
+}
+
+#timer {
+    float: right;
+    margin-right: 2%;
+    background-color: #0f8870;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.navigateQues {
+    clear: both;
+}
+
+.navButton {
+    margin: 2%;
+    padding: 1%;
+    border: 1px solid #000;
+    width: 10%;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    background-color: #0f8870;
+    color: white;
+}
+
+.navButton:hover {
+    cursor: pointer;
+}
+
+.questionNo, .questionName {
+    clear: both;
+    margin-left: 2%;
+    float: left;
 }
