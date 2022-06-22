@@ -62,3 +62,8 @@
     margin-left: 2%;
     float: left;
 }
+
+#navigator {
+    float: left;
+    margin: 2%;
+}

@@ -4,6 +4,10 @@ import "../styles/match_col.css";
 // import {DndProvider, } from 'react-dnd';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
+// pagination
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 let endTime = new Date(list[0].end).getTime();
 let arr = [];
 let toShow = false;
@@ -61,6 +65,14 @@ export default function ListQues() {
 
     return  (
         <div>
+            <Stack spacing={6} id="navigator">
+                <Pagination count={len} 
+                            size="large" 
+                            color='primary'
+                            defaultPage={6} 
+                            siblingCount={0} 
+                            boundaryCount={2}/>
+            </Stack>
             <h1 id="timer">{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
             <h3 className="questionNo">Question-{count}</h3>
             <p className="questionName">{list[0].questions.map(
