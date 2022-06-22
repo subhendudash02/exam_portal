@@ -71,7 +71,9 @@ export default function ListQues() {
                             color='primary'
                             defaultPage={6} 
                             siblingCount={0} 
-                            boundaryCount={2}/>
+                            boundaryCount={2}
+                            page={count}
+                            onChange={(e) => setCount(parseInt(e.target.textContent))} />
             </Stack>
             <h1 id="timer">{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
             <h3 className="questionNo">Question-{count}</h3>
