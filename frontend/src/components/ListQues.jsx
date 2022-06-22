@@ -22,6 +22,7 @@ const drop = (e) => {
             e.target.appendChild(document.getElementsByClassName(className)[0]);
         }
         else if (e.target.className === "colA") {
+            console.log(document.getElementsByClassName(className)[1]);
             e.target.appendChild(document.getElementsByClassName(className)[1]);
         }
     }
@@ -114,7 +115,7 @@ export default function ListQues() {
                     })}
                 </div>
             </div>
-            {!disappear || count == len ? <button onClick={addTime} className="navButton">Next</button> : null}
+            {!disappear && count < len ? <button onClick={addTime} className="navButton">Next</button> : null}
             {count > 1 || count >= len ? <button onClick={editTime} className="navButton"> Previous</button> : null}
             <button onClick={() => {
                 toShow = true;
