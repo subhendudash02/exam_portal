@@ -3,4 +3,5 @@ backend/backend/__pycache__/
 backend/authentication/__pycache__/
 backend/db.sqlite3
 backend/authentication/migrations/
+backend/tests/migrations/
 .vscode/
