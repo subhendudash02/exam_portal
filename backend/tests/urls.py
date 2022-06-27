@@ -4,6 +4,7 @@ from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'exams', TestViewSet)
+# router.register(r'rows', RowViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

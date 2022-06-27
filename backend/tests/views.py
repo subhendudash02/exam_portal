@@ -8,3 +8,7 @@ from .serializers import TestSerializer
 class TestViewSet(viewsets.ModelViewSet):
     queryset = TestModel.objects.all()
     serializer_class = TestSerializer
+
+# class RowViewSet(viewsets.ModelViewSet):
+#     queryset = RowModel.objects.all()
+#     serializer_class = RowSerializer
