@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import '../styles/signin_up.css';
-import url from "../utils/api";
+import auth from "../utils/api_auth";
 
 export default function SignUp() {
     const name = useRef();
@@ -32,7 +32,7 @@ export default function SignUp() {
         e.preventDefault();
         try {
             if (password.current.value === repass.current.value) {
-                const submit = await url.post("/register", {
+                const submit = await auth.post("/register", {
                     name: name.current.value,
                     email: email.current.value,
                     password: password.current.value

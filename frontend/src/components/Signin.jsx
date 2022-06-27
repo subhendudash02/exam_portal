@@ -3,7 +3,7 @@ import React, {useEffect, useRef} from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import '../styles/signin_up.css';
-import url from "../utils/api";
+import auth from "../utils/api_auth";
 
 export default function SignIn() {
     const email = useRef();
@@ -28,7 +28,7 @@ export default function SignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const submit = await url.post("/login", {
+            const submit = await auth.post("/login", {
                 email: email.current.value,
                 password: password.current.value
             })

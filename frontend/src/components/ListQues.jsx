@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react';
-import list from '../utils/question';
+import React, {useState, useEffect} from 'react';
 import "../styles/match_col.css";
+import link from '../utils/api_exam';
 // import {DndProvider, } from 'react-dnd';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -8,10 +8,9 @@ import "../styles/match_col.css";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-let endTime = new Date(list[0].end).getTime();
-let arr = [];
+
+// let arr = [];
 let toShow = false;
-let len = list[0].questions.length;
 
 const allow = (e) => {
     e.preventDefault();
@@ -41,22 +40,34 @@ export default function ListQues() {
     const [disp, setDisp] = useState("over");
     const [disappear, setDisappear] = useState(false);
     const [count, setCount] = useState(1);
+    const [len, setLength] = useState(0);
+    const [endTime, setEndTime] = useState(0);
+    const [ques, setQues] = useState([]);
 
     useEffect(() => {
+        link.get("/exams/1/").then(
+            (res) => {
+                setLength(res.data.questions.length);
+                setEndTime(new Date(res.data.end.slice(0, res.data.end.length-1)).getTime());
+                setQues(res.data.questions);
+            }
+        );
         let dist = endTime - new Date().getTime();
         const interval = setInterval(() => {
             setDisp(dist)}, 1000);
         return () => {clearInterval(interval)};
     });
 
+    // let endTime = new Date(list[0].end).getTime();
+
     let hours = Math.floor((disp % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((disp % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((disp % (1000 * 60)) / 1000);
 
     const addTime = () => {
-        arr.push({"hours": hours, "minutes": minutes, "seconds": seconds});
+        // arr.push({"hours": hours, "minutes": minutes, "seconds": seconds});
         setCount(count + 1);
-        console.log(arr);
+        // console.log(arr);
     };
 
     const editTime = () => {
@@ -73,13 +84,20 @@ export default function ListQues() {
                             siblingCount={0} 
                             boundaryCount={2}
                             page={count}
-                            onChange={(e) => setCount(parseInt(e.target.textContent))} />
+                            onChange={(e) => {
+                                    // console.log(e.target.textContent);
+                                    if (e.target.textContent === "") {
+                                        console.log(count);
+                                        setCount(count + 1);
+                                    }
+                                    setCount(parseInt(e.target.textContent))
+                                }} />
             </Stack>
             <h1 id="timer">{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
             <h3 className="questionNo">Question-{count}</h3>
-            <p className="questionName">{list[0].questions.map(
+            <p className="questionName">{ques.map(
                 (e) => {
-                   if (e.ques_id === count) {
+                   if (e.id === count) {
                           return e.question_name;
                    } 
                 }
@@ -93,38 +111,50 @@ export default function ListQues() {
                 <div className="colA" 
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
-                    {list[0].questions.map((e) => {
-                        if (e.ques_id === count) {
+                    {ques.map((e, i) => {
+                        if (e.id === count) {
+                            const arr = e.colA.split(", ");
                             return (
-                                <div key={e.ques_id} >
-                                    {e.rows.map((x) => {
-                                        return (
-                                            <div key={x.id} id="select1" draggable="true" onDragStart={(e) => drag(e)} className={"box" + x.id}>
-                                                <h3>{x.colA}</h3>
-                                            </div>
-                                        );
-                                    })}
+                                <div key={i}>
+                                    {
+                                        arr.map((e, index) => {
+                                            return (
+                                                <div key={index} 
+                                                    id="select1" 
+                                                    className={"box" + (index + 1)}
+                                                    draggable="true" 
+                                                    onDragStart={(e) => drag(e)}>
+                                                <h3>{e}</h3>
+                                                </div>
+                                            );
+                                        })
+                                    }
                                 </div>
-                            );
+                            ); 
                         }
                     })}
                 </div>
                 <div className="colB" 
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
-                    {list[0].questions.map((e) => {
-                        if (e.ques_id === count) {
+                    {ques.map((e, i) => {
+                        if (e.id === count) {
+                            const arr = e.colB.split(", ");
                             return (
-                                <div key={e.ques_id} >
-                                    {e.rows.map((x) => {
-                                        return (
-                                            <div key={x.id} id="select2" className={"box" + x.id}>
-                                                <h3>{x.colB}</h3>
-                                            </div>
-                                        );
-                                    })}
+                                <div key={i}>
+                                    {
+                                        arr.map((e, index) => {
+                                            return (
+                                                <div key={index} 
+                                                    id="select2" 
+                                                    className={"box" + (index + 1)}>
+                                                <h3>{e}</h3>
+                                                </div>
+                                            );
+                                        })
+                                    }
                                 </div>
-                            );
+                            ); 
                         }
                     })}
                 </div>
@@ -135,13 +165,13 @@ export default function ListQues() {
                 toShow = true;
                 setDisappear(true);
             }} className="navButton">End Test</button>
-            {toShow ? arr.map((item, index) => {
+            {/* {toShow ? arr.map((item, index) => {
             return (
                 <div key={index}>
                     <p>{item.hours}:{item.minutes}:{item.seconds}</p>
                 </div>
                 );
-            }) : null}
+            }) : null} */}
         </div>
     );
 }

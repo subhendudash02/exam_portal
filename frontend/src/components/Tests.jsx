@@ -1,7 +1,7 @@
 import { useCookies } from 'react-cookie';
 import { useNavigate, Link } from 'react-router-dom';
 import jwt from 'jwt-decode';
-import url from '../utils/api';
+import auth from '../utils/api_auth';
 import { useEffect } from 'react';
 import "../styles/tests.css";
 import list from '../utils/question';
@@ -29,7 +29,7 @@ export default function Tests() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const submit = await url.post("/logout", {});
+            const submit = await auth.post("/logout", {});
             setCookie("jwt", "", {path : "/"});
             if (submit.status === 200) {
                 navigate("/");
