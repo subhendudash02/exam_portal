@@ -1,19 +1,30 @@
 import { useCookies } from 'react-cookie';
 import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
 import jwt from 'jwt-decode';
 import auth from '../utils/api_auth';
+import link from '../utils/api_exam';
 import { useEffect } from 'react';
 import "../styles/tests.css";
-import list from '../utils/question';
 
-const currTime = Math.floor(new Date().getTime() / 1000);
+const currTime = Math.floor(new Date().getTime());
 
 export default function Tests() {
     const [cookie, setCookie] = useCookies(['userdata']);
+    const [startTime, setStartTime] = useState(0);
+    const [endTime, setEndTime] = useState(0);
+    const [test, setTest] = useState([]);
     const navigate = useNavigate();
     let decoded;
 
     useEffect(() => {
+        link.get("/exams/5/").then(
+            (res) => {
+                setStartTime(new Date(res.data.start.slice(0, res.data.start.length-1)).getTime());
+                setEndTime(new Date(res.data.end.slice(0, res.data.end.length-1)).getTime());
+                setTest(res.data);
+            }
+        );
         if (cookie.jwt === "") {
             navigate("/signin");
         }
@@ -49,7 +60,7 @@ export default function Tests() {
             </div>
             <div className="list">
                 <h3>Hi, { decoded ? decoded.name : null } </h3>
-                {list.map((e) => {
+                {/* {list.map((e) => {
                     return (
                         <div key={e.test_id} className="available_tests">
                             <h2>{e.test_name}</h2>
@@ -62,7 +73,19 @@ export default function Tests() {
                             }
                         </div>
                     )
-                })}
+                })} */}
+
+                <div key={test.test_id} className="available_tests">
+                    <h2>{test.test_name}</h2>
+                    <p><strong>Faculty: </strong>{test.teacher_name}</p>
+                    <p><strong>Start: </strong>{test.start}</p>
+                    <p><strong>End: </strong>{test.end}</p>
+                    <p>{test.category}</p>
+                    {startTime <= currTime && endTime >= currTime ? 
+                        <button className='start'><Link to="/exam">Start</Link></button> : 
+                        <i>Not available</i>
+                    }
+                </div> 
             </div>
         </div>
     );

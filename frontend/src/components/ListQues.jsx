@@ -37,26 +37,27 @@ const drag = (e) => {
 }
 
 export default function ListQues() {
-    const [disp, setDisp] = useState("over");
+    const [disp, setDisp] = useState(0  );
     const [disappear, setDisappear] = useState(false);
     const [count, setCount] = useState(1);
     const [len, setLength] = useState(0);
-    const [endTime, setEndTime] = useState(0);
     const [ques, setQues] = useState([]);
+    const [endTime, setEndTime] = useState(0);
+
+    const fn = async () => {await link.get("/exams/5/").then(
+        (res) => {
+            setLength(res.data.questions.length);
+            setEndTime(new Date(res.data.end.slice(0, res.data.end.length-1)).getTime());
+            setQues(res.data.questions);
+        }
+    )};
 
     useEffect(() => {
-        link.get("/exams/1/").then(
-            (res) => {
-                setLength(res.data.questions.length);
-                setEndTime(new Date(res.data.end.slice(0, res.data.end.length-1)).getTime());
-                setQues(res.data.questions);
-            }
-        );
+        fn();
         let dist = endTime - new Date().getTime();
-        const interval = setInterval(() => {
-            setDisp(dist)}, 1000);
-        return () => {clearInterval(interval)};
-    });
+        let interval = setTimeout(() => {setDisp(dist)} , 1000);
+        // return () => {clearTimeout(interval)};
+    }, [fn]);
 
     // let endTime = new Date(list[0].end).getTime();
 
@@ -80,10 +81,8 @@ export default function ListQues() {
                 <Pagination count={len} 
                             size="large" 
                             color='primary'
-                            defaultPage={6} 
-                            siblingCount={0} 
-                            boundaryCount={2}
                             page={count}
+                            hideNextButton hidePrevButton
                             onChange={(e) => {
                                     // console.log(e.target.textContent);
                                     if (e.target.textContent === "") {
@@ -96,8 +95,8 @@ export default function ListQues() {
             <h1 id="timer">{hours > 0 ? hours : 0}:{minutes > 0 ? minutes : 0}:{seconds > 0 ? seconds : 0}</h1>
             <h3 className="questionNo">Question-{count}</h3>
             <p className="questionName">{ques.map(
-                (e) => {
-                   if (e.id === count) {
+                (e, i) => {
+                   if (i === count - 1) {
                           return e.question_name;
                    } 
                 }
@@ -112,7 +111,7 @@ export default function ListQues() {
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
                     {ques.map((e, i) => {
-                        if (e.id === count) {
+                        if (i === count - 1) {
                             const arr = e.colA.split(", ");
                             return (
                                 <div key={i}>
@@ -138,7 +137,7 @@ export default function ListQues() {
                     onDrop={(e) => drop(e)} 
                     onDragOver={(e) => allow(e)}>
                     {ques.map((e, i) => {
-                        if (e.id === count) {
+                        if (i === count - 1) {
                             const arr = e.colB.split(", ");
                             return (
                                 <div key={i}>
