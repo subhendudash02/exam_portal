@@ -22,11 +22,15 @@ const drop = (e) => {
     let idName = e.dataTransfer.getData("id");
     if (idName === "select1") {
         if (e.target.id === "select2") {
-            e.target.appendChild(document.getElementsByClassName(className)[0]);
+            const target = document.getElementsByClassName(className)[0];
+            e.target.appendChild(target);
+            target.style.backgroundColor = "blue";
         }
         else if (e.target.className === "colA") {
-            console.log(document.getElementsByClassName(className)[1]);
-            e.target.appendChild(document.getElementsByClassName(className)[1]);
+            const target = document.getElementsByClassName(className)[1];
+            console.log(target);
+            e.target.appendChild(target);
+            target.style.backgroundColor = "#0f8870";
         }
     }
 }
