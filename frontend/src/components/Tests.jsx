@@ -11,20 +11,20 @@ const currTime = Math.floor(new Date().getTime());
 
 export default function Tests() {
     const [cookie, setCookie] = useCookies(['userdata']);
-    const [startTime, setStartTime] = useState(0);
-    const [endTime, setEndTime] = useState(0);
-    const [test, setTest] = useState([]);
     const navigate = useNavigate();
+    const [array, setArray] = useState([]);
     let decoded;
 
-    useEffect(() => {
-        link.get("/exams/5/").then(
+    const fn = async () => {
+        await link.get("/exams/").then(
             (res) => {
-                setStartTime(new Date(res.data.start.slice(0, res.data.start.length-1)).getTime());
-                setEndTime(new Date(res.data.end.slice(0, res.data.end.length-1)).getTime());
-                setTest(res.data);
+                setArray(res.data);
             }
         );
+    }
+
+    useEffect(() => {
+        fn();
         if (cookie.jwt === "") {
             navigate("/signin");
         }
@@ -60,32 +60,25 @@ export default function Tests() {
             </div>
             <div className="list">
                 <h3>Hi, { decoded ? decoded.name : null } </h3>
-                {/* {list.map((e) => {
+                
+                {array.map((test) => {
+                    console.log(test.test_id);
+                    let startTime = new Date(test.start.slice(0, test.start.length-1)).getTime();
+                    let endTime = new Date(test.end.slice(0, test.start.length-1)).getTime();
                     return (
-                        <div key={e.test_id} className="available_tests">
-                            <h2>{e.test_name}</h2>
-                            <p><strong>Start: </strong>{e.start}</p>
-                            <p><strong>End: </strong>{e.end}</p>
-                            {Math.floor(new Date(e.start).getTime() / 1000) <= currTime && 
-                            Math.floor(new Date(e.end).getTime() / 1000) >= currTime ? 
-                                <button className='start'><Link to="/exam">Start</Link></button> : 
+                        <div key={test.test_id} className="available_tests">
+                            <h2>{test.test_name}</h2>
+                            <p><strong>Faculty: </strong>{test.teacher_name}</p>
+                            <p><strong>Start: </strong>{test.start}</p>
+                            <p><strong>End: </strong>{test.end}</p>
+                            <p>{test.category}</p>
+                            {startTime <= currTime && endTime >= currTime ? 
+                                <Link to={`/exam/${test.test_id}`} state={{test: test}}><button className='start'>Start</button></Link> : 
                                 <i>Not available</i>
                             }
                         </div>
                     )
-                })} */}
-
-                <div key={test.test_id} className="available_tests">
-                    <h2>{test.test_name}</h2>
-                    <p><strong>Faculty: </strong>{test.teacher_name}</p>
-                    <p><strong>Start: </strong>{test.start}</p>
-                    <p><strong>End: </strong>{test.end}</p>
-                    <p>{test.category}</p>
-                    {startTime <= currTime && endTime >= currTime ? 
-                        <button className='start'><Link to="/exam">Start</Link></button> : 
-                        <i>Not available</i>
-                    }
-                </div> 
+                })}
             </div>
         </div>
     );

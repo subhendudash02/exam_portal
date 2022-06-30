@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import "../styles/match_col.css";
 import link from '../utils/api_exam';
+import { useLocation } from "react-router-dom";
 // import {DndProvider, } from 'react-dnd';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -41,6 +42,8 @@ const drag = (e) => {
 }
 
 export default function ListQues() {
+    const { state }  = useLocation();
+
     const [disp, setDisp] = useState(0  );
     const [disappear, setDisappear] = useState(false);
     const [count, setCount] = useState(1);
@@ -48,13 +51,15 @@ export default function ListQues() {
     const [ques, setQues] = useState([]);
     const [endTime, setEndTime] = useState(0);
 
-    const fn = async () => {await link.get("/exams/5/").then(
+    const fn = async () => {await link.get(`/exams/${state.test.test_id}/`).then(
         (res) => {
             setLength(res.data.questions.length);
             setEndTime(new Date(res.data.end.slice(0, res.data.end.length-1)).getTime());
             setQues(res.data.questions);
         }
     )};
+
+    console.log(state);
 
     useEffect(() => {
         fn();
