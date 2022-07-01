@@ -9,8 +9,6 @@ import { useLocation } from "react-router-dom";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-
-// let arr = [];
 let toShow = false;
 
 const allow = (e) => {
@@ -44,12 +42,15 @@ const drag = (e) => {
 export default function ListQues() {
     const { state }  = useLocation();
 
-    const [disp, setDisp] = useState(0  );
+    const [disp, setDisp] = useState(0);
     const [disappear, setDisappear] = useState(false);
     const [count, setCount] = useState(1);
     const [len, setLength] = useState(0);
     const [ques, setQues] = useState([]);
     const [endTime, setEndTime] = useState(0);
+    const [counter, setCounter] = useState(0);
+    const [reset, setReset] = useState(false);
+    const [times] = useState(new Array(50).fill(0));
 
     const fn = async () => {await link.get(`/exams/${state.test.test_id}/`).then(
         (res) => {
@@ -59,12 +60,19 @@ export default function ListQues() {
         }
     )};
 
-    console.log(state);
-
     useEffect(() => {
         fn();
         let dist = endTime - new Date().getTime();
-        let interval = setTimeout(() => {setDisp(dist)} , 1000);
+        setTimeout(() => {setDisp(dist)} , 1000);
+        setTimeout(() => {
+            if (reset === true) {
+                setCounter(0);
+                setReset(false);
+            }
+            else {
+                setCounter(counter + 1);
+            }
+        }, 1000);
         // return () => {clearTimeout(interval)};
     }, [fn]);
 
@@ -74,14 +82,25 @@ export default function ListQues() {
     let minutes = Math.floor((disp % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((disp % (1000 * 60)) / 1000);
 
-    const addTime = () => {
+    const addTime = (c) => {
         // arr.push({"hours": hours, "minutes": minutes, "seconds": seconds});
+        if (times.length > c) {
+            times[c] += counter;
+        }
+        else {
+            // setTimes([...times, counter]);
+            times[c] = counter;
+        }
+        setReset(true);
         setCount(count + 1);
-        // console.log(arr);
+        console.log(times);
     };
 
-    const editTime = () => {
+    const editTime = (c) => {
+        times[c - 1] += counter;
+        setReset(true);
         setCount(count - 1);
+        console.log(times, counter);
     };
 
     return  (
@@ -167,10 +186,12 @@ export default function ListQues() {
                     })}
                 </div>
             </div>
-            {!disappear && count < len ? <button onClick={addTime} className="navButton">Next</button> : null}
-            {count > 1 || count >= len ? <button onClick={editTime} className="navButton"> Previous</button> : null}
+            {!disappear && count < len ? <button onClick={() => {addTime(count - 1)}} className="navButton">Next</button> : null}
+            {count > 1 || count >= len ? <button onClick={() => {editTime(count)}} className="navButton"> Previous</button> : null}
             <button onClick={() => {
                 toShow = true;
+                times[count - 1] += counter;
+                console.log(times, count, len);
                 setDisappear(true);
             }} className="navButton">End Test</button>
             {/* {toShow ? arr.map((item, index) => {
