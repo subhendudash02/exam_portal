@@ -113,10 +113,7 @@ export default function ListQues() {
                             hideNextButton hidePrevButton
                             onChange={(e) => {
                                     // console.log(e.target.textContent);
-                                    if (e.target.textContent === "") {
-                                        console.log(count);
-                                        setCount(count + 1);
-                                    }
+                                    times[count - 1] += counter;
                                     setCount(parseInt(e.target.textContent))
                                 }} />
             </Stack>
