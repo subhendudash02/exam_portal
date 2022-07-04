@@ -1,10 +1,13 @@
-import './styles/App.css';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+
 import SignIn from './components/Signin';
 import SignUp from './components/Signup';
 import Home from './components/Home';
 import ListQues from './components/ListQues';
 import Tests from './components/Tests';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+
+import './styles/App.css';
+
 
 function App() {
 
