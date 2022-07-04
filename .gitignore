@@ -1,8 +1,8 @@
 env
-backend/backend/__pycache__/
-backend/authentication/__pycache__/
-backend/tests/__pycache__/
-backend/db.sqlite3
-backend/authentication/migrations/
-backend/tests/migrations/
+server/server/__pycache__/
+server/authentication/__pycache__/
+server/tests/__pycache__/
+server/db.sqlite3
+server/authentication/migrations/
+server/tests/migrations/
 .vscode/
