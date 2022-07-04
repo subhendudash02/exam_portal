@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import React, {useEffect, useRef} from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import '../styles/signin_up.css';
+
 import auth from "../utils/api_auth";
+
+import '../styles/signin_up.css';
 
 export default function SignIn() {
     const email = useRef();

@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import "../styles/match_col.css";
-import link from '../utils/api_exam';
 import { useLocation } from "react-router-dom";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 // import {DndProvider, } from 'react-dnd';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
-// pagination
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import link from '../utils/api_exam';
+
+import "../styles/match_col.css";
 
 let toShow = false;
 

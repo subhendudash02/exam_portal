@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import React, {useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import '../styles/signin_up.css';
+
 import auth from "../utils/api_auth";
+
+import '../styles/signin_up.css';
 
 export default function SignUp() {
     const name = useRef();
