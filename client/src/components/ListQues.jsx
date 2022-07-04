@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import link from '../utils/api_exam';
+import Column from '../utils/column';
 
 import "../styles/match_col.css";
 
@@ -131,58 +132,11 @@ export default function ListQues() {
                 <Columns />
             </DndProvider> */}
 
-            <div className='question'>
-                <div className="colA" 
-                    onDrop={(e) => drop(e)} 
-                    onDragOver={(e) => allow(e)}>
-                    {ques.map((e, i) => {
-                        if (i === count - 1) {
-                            const arr = e.colA.split(", ");
-                            return (
-                                <div key={i}>
-                                    {
-                                        arr.map((e, index) => {
-                                            return (
-                                                <div key={index} 
-                                                    id="select1" 
-                                                    className={"box" + (index + 1)}
-                                                    draggable="true" 
-                                                    onDragStart={(e) => drag(e)}>
-                                                <h3>{e}</h3>
-                                                </div>
-                                            );
-                                        })
-                                    }
-                                </div>
-                            ); 
-                        }
-                    })}
-                </div>
-                <div className="colB" 
-                    onDrop={(e) => drop(e)} 
-                    onDragOver={(e) => allow(e)}>
-                    {ques.map((e, i) => {
-                        if (i === count - 1) {
-                            const arr = e.colB.split(", ");
-                            return (
-                                <div key={i}>
-                                    {
-                                        arr.map((e, index) => {
-                                            return (
-                                                <div key={index} 
-                                                    id="select2" 
-                                                    className={"box" + (index + 1)}>
-                                                <h3>{e}</h3>
-                                                </div>
-                                            );
-                                        })
-                                    }
-                                </div>
-                            ); 
-                        }
-                    })}
-                </div>
+            <div className="question">
+                <Column count={count} ondrop={(e) => {drop(e)}} ondragover={(e) => {allow(e)}} question={ques} col_class="colA" row_id="select1" isdrag="true" ondragstart={(e) => drag(e)} />
+                <Column count={count} ondrop={(e) => {drop(e)}} ondragover={(e) => {allow(e)}} question={ques} col_class="colB" row_id="select2" isdrag="false" />
             </div>
+
             {!disappear && count < len ? <button onClick={() => {addTime(count - 1)}} className="navButton">Next</button> : null}
             {count > 1 || count >= len ? <button onClick={() => {editTime(count)}} className="navButton"> Previous</button> : null}
             <button onClick={() => {
@@ -191,13 +145,6 @@ export default function ListQues() {
                 console.log(times, count, len);
                 setDisappear(true);
             }} className="navButton">End Test</button>
-            {/* {toShow ? arr.map((item, index) => {
-            return (
-                <div key={index}>
-                    <p>{item.hours}:{item.minutes}:{item.seconds}</p>
-                </div>
-                );
-            }) : null} */}
         </div>
     );
 }
