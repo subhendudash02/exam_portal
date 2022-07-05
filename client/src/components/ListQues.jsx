@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 
 import link from '../utils/api_exam';
 import Column from '../utils/column';
+import saveState from '../utils/ans_state';
 
 import "../styles/match_col.css";
 
@@ -16,8 +17,16 @@ const allow = (e) => {
     e.preventDefault();
 }
 
+const saveAns = (count) => {
+    let tempObj = {};
+    tempObj["colA"] = document.getElementsByClassName("colA")[0].innerHTML;
+    tempObj["colB"] = document.getElementsByClassName("colB")[0].innerHTML;
+    saveState[count - 1] = tempObj;
+}
+
 const drop = (e) => {
     e.preventDefault();
+    console.log(e);
     let className = e.dataTransfer.getData("class");
     let idName = e.dataTransfer.getData("id");
     if (idName === "select1") {
@@ -36,6 +45,7 @@ const drop = (e) => {
 }
 
 const drag = (e) => {
+    console.log(e);
     e.dataTransfer.setData("class", e.target.className);
     e.dataTransfer.setData("id", e.target.id);
 }
@@ -136,6 +146,12 @@ export default function ListQues() {
                 <Column count={count} ondrop={(e) => {drop(e)}} ondragover={(e) => {allow(e)}} question={ques} col_class="colA" row_id="select1" isdrag="true" ondragstart={(e) => drag(e)} />
                 <Column count={count} ondrop={(e) => {drop(e)}} ondragover={(e) => {allow(e)}} question={ques} col_class="colB" row_id="select2" isdrag="false" />
             </div>
+
+            <button onClick = {() => {
+                saveAns(count);
+                addTime(count - 1);
+                console.log(saveState);
+            }}>Save</button>
 
             {!disappear && count < len ? <button onClick={() => {addTime(count - 1)}} className="navButton">Next</button> : null}
             {count > 1 || count >= len ? <button onClick={() => {editTime(count)}} className="navButton"> Previous</button> : null}
