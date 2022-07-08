@@ -1,6 +1,6 @@
 import parse from "html-react-parser";
 
-import saveState from "../utils/ans_state.js";
+import saveState from "../utils/ans_state";
 
 // template for the column object
 function Row(props) {
