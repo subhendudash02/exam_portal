@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import jwt from 'jwt-decode';
-import auth from '../utils/api_auth';
-import link from '../utils/api_exam';
+import auth from '../../utils/api_auth';
+import link from '../../utils/api_exam';
 
-import "../styles/tests.css";
+import "./tests.css";
 
 const currTime = Math.floor(new Date().getTime());
 

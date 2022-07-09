@@ -3,9 +3,9 @@ import React, {useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
-import auth from "../utils/api_auth";
+import auth from "../../utils/api_auth";
 
-import '../styles/signin_up.css';
+import '../../styles/signin_up.css';
 
 export default function SignUp() {
     const name = useRef();

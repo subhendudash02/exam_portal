@@ -5,11 +5,11 @@ import Stack from '@mui/material/Stack';
 // import {DndProvider, } from 'react-dnd';
 // import {HTML5Backend} from 'react-dnd-html5-backend';
 
-import link from '../utils/api_exam';
-import Column from '../utils/column';
-import saveState from '../utils/ans_state';
+import link from '../../utils/api_exam';
+import Column from '../../utils/column';
+import saveState from '../../utils/ans_state';
 
-import "../styles/match_col.css";
+import "./match_col.css";
 
 let toShow = false;
 
