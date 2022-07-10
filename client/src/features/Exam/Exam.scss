@@ -1,9 +1,11 @@
+@import "../../styles/components/button.scss";
+@import '../../styles/base/colors.scss';
+
 .colA, .colB {
-    padding: 2%;
-    border: 1px solid #000;
+    @include buttonTheme($black, $white, 2%, 10px);
+    border: 1px solid $black;
     width: 50%;
     margin: 2%;
-    border-radius: 10px;
 }
 
 .question {
@@ -13,17 +15,17 @@
 }
 
 #select1, #select2 {
-    border: 1px solid #000;
+    border: 1px solid $black;
     margin: 2%;
     border-radius: 10px;
 }
 
 #select1 {
-    background-color: #0f8870;
+    background-color: $colAColor;
 }
 
 #select2 {
-    background-color: rgb(194, 194, 39);
+    background-color: $colBColor;
 }
 
 #select1:hover {
@@ -31,11 +33,9 @@
 }
 
 #timer {
+    @include buttonTheme($black, $colAColor, 1%, 10px);
     float: right;
     margin-right: 2%;
-    background-color: #0f8870;
-    padding: 1%;
-    border-radius: 10px;
 }
 
 .navigateQues {
@@ -43,18 +43,11 @@
 }
 
 .navButton {
+    @include buttonTheme($white, $colAColor, 1%, 10px);
     margin: 2%;
-    padding: 1%;
-    border: 1px solid #000;
+    border: 1px solid $black;
     width: 10%;
-    border-radius: 10px;
     font-size: 1.1rem;
-    background-color: #0f8870;
-    color: white;
-}
-
-.navButton:hover {
-    cursor: pointer;
 }
 
 .questionNo, .questionName {

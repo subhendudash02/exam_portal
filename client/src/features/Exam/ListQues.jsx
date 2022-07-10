@@ -9,7 +9,7 @@ import link from '../../utils/api_exam';
 import Column from '../../utils/column';
 import saveState from '../../utils/ans_state';
 
-import "./match_col.css";
+import "./Exam.scss";
 
 let toShow = false;
 

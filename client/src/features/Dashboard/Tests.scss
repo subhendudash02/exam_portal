@@ -1,0 +1,35 @@
+@import '../../styles/components/button.scss';
+@import '../../styles/base/colors.scss';
+
+.logout { 
+    @include buttonTheme($white, $primaryGreen, 1%, 10px);
+    float: right;
+    margin: -20px;
+}
+
+.list {
+    clear: both;
+    text-align: left;
+    padding: 2%;
+}
+
+.navbar {
+    background-color: $black;
+    color: $white;
+    padding: 2%;
+}
+
+.available_tests {
+    text-align: left;
+    border: 1px solid $black;
+    padding: 2%;
+    width: 40%;
+    border-radius: 10px;
+    margin: 0 0 2% 0;
+}
+
+.start {
+    @include buttonTheme($white, $primaryGreen, 2%, 50px);
+    width: 30%;
+    font-size: 1.2rem;
+}

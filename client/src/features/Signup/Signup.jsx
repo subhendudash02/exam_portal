@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 
 import auth from "../../utils/api_auth";
 
-import '../../styles/signin_up.css';
+import './Signup.scss';
 
 export default function SignUp() {
     const name = useRef();

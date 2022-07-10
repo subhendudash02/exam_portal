@@ -1,0 +1,8 @@
+@mixin buttonTheme($fgcolor, $bgcolor, $padding, $br) {
+  background-color: $bgcolor;
+  color: $fgcolor;
+  border: none;
+  padding: $padding;
+  border-radius: $br;
+  cursor: pointer;
+}

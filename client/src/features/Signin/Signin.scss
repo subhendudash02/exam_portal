@@ -1,0 +1,19 @@
+@use "../../styles/components/textDesign.scss";
+@import "../../styles/components/signInUp.scss";
+@import '../../styles/base/colors.scss';
+
+#left {
+    width: 60%;
+    left: 0;
+}
+
+#right {
+    width: 40%;
+    right: 0;   
+    background-color: $HomeBlack;
+    color: $white;
+} 
+
+#left, #right {
+    @include flexPlace;
+}

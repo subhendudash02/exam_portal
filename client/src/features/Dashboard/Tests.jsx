@@ -7,7 +7,7 @@ import jwt from 'jwt-decode';
 import auth from '../../utils/api_auth';
 import link from '../../utils/api_exam';
 
-import "./tests.css";
+import "./Tests.scss";
 
 const currTime = Math.floor(new Date().getTime());
 

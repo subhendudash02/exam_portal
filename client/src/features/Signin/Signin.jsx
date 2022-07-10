@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import auth from "../../utils/api_auth";
 
-import '../../styles/signin_up.css';
+import './Signin.scss';
 
 export default function SignIn() {
     const email = useRef();

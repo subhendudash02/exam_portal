@@ -1,0 +1,24 @@
+@import "../../styles/components/button.scss";
+@import '../../styles/base/colors.scss';
+
+.home {
+  padding: 10% 0 0 0;
+  margin: 2%;
+}
+
+.heading {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 4% !important;
+}
+
+.signin {
+  @include buttonTheme($white, $primaryGreen, 2%, 50px);
+  width: 30%;
+  font-size: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
