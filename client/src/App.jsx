@@ -6,7 +6,7 @@ import Home from '../src/features/Homepage/Home';
 import ListQues from '../src/features/Exam/ListQues';
 import Tests from '../src/features/Dashboard/Tests';
 
-import './App.css';
+import './App.scss';
 
 function App() {
 

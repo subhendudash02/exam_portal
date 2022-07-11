@@ -7,7 +7,7 @@ export default function Home() {
         <div className="home">
             <h1 className='heading'>Welcome to the portal</h1>
             <p className="para">One place for all exams!</p>
-            <button className="signin"><Link to="/signin">Sign In</Link></button>
+            <button className="signin" data-testid="getSignin"><Link to="/signin">Sign In</Link></button>
         </div>
     );
 }
