@@ -1,6 +1,6 @@
 @use "../../styles/components/textDesign.scss";
-@import "../../styles/components/signInUp.scss";
-@import '../../styles/base/colors.scss';
+@import "../../styles/utilities/_mixins.scss";
+@import '../../styles/utilities/_variables.scss';
 
 #left {
     width: 60%;

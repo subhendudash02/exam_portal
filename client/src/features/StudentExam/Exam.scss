@@ -1,5 +1,5 @@
-@import "../../styles/components/button.scss";
-@import '../../styles/base/colors.scss';
+@import "../../styles/utilities/_mixins.scss";
+@import '../../styles/utilities/_variables.scss';
 
 .colA, .colB {
     @include buttonTheme($black, $white, 2%, 10px);

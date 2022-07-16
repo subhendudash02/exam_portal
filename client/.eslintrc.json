@@ -1,0 +1,61 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "overrides": [
+        {
+          "files": [
+            "**/*.spec.js",
+            "**/*.spec.jsx",
+            "**/*.test.js",
+            "**/*.test.jsx"
+          ],
+          "env": {
+            "jest": true
+          }
+        }
+    ],
+    "rules": {
+        "no-plusplus": "off",
+        "linebreak-style": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off",
+        "react/jsx-props-no-spreading": ["off"],
+        "react/no-unescaped-entities": ["off"],
+        "react/require-default-props": ["off"],
+        "import/prefer-default-export": "off",
+        "react/destructuring-assignment": [
+        "warn",
+        "never",
+        {
+            "ignoreClassFields": true
+        }
+        ],
+        "react/prop-types": "off",
+        "react/function-component-definition": [
+        2,
+        {
+            "namedComponents": "arrow-function"
+        }
+        ]
+    }
+}
